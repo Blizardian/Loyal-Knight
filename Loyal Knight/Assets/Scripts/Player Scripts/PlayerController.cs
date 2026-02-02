@@ -2,20 +2,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Movement values
+    // Value for the standard movement speed
     public float standardMovementSpeed = 10.0f;
+    // Value of the multiplier for the sprinting mechanic
     public float sprintValue = 1.8f;
+    // Value for the current movement speed
     public float currentMovementSpeed;
+    // Value for the rotation speed
     public float rotationSpeed = 100.0f;
 
     
     void Start()
     {
+        // Set values, gameobject, etc at the start so it can't be forgotten about
         SetAtStart();
     }
 
     void Update()
     {
+        // Ensures the player is able to move
         Movement();
     }
 
