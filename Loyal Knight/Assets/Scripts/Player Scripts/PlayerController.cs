@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     // Value for the rotation speed
     public float rotationSpeed = 100.0f;
 
-    
     void Start()
     {
         // Set values, gameobject, etc at the start so it can't be forgotten about
@@ -38,14 +37,19 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
         // Get the translation and rotation values and increment them with the movement or rotation speed
-        float translation = Input.GetAxis("Vertical") * currentMovementSpeed;
+        float verticalTranslation = Input.GetAxis("Vertical") * currentMovementSpeed;
+        float horizontalTranslation = Input.GetAxis("Horizontal") * currentMovementSpeed;
         float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
 
         // Make the player move
-        transform.Translate(0, 0, translation * Time.deltaTime);
+        transform.Translate(horizontalTranslation * Time.deltaTime, 0, verticalTranslation * Time.deltaTime);
 
         // Make the player rotate the character
-        transform.Rotate(0, rotation * Time.deltaTime, 0);
+        // TODO: Zoom in and out with the camera.
+
+        // TODO: Control the camera over the scen, with a rest to its original state and a limit to how far the camera can go
+
+        // OLD ---- transform.Rotate(0, rotation * Time.deltaTime, 0);
 
         // The player can sprint with LeftShift
         Sprinting();
