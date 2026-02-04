@@ -39,10 +39,23 @@ public class Enemy1Behaviour : MonoBehaviour
     private float _attackDistance;
     public bool canAttack;
     private float _attackCooldown;
-    private float _focustCostPerAttack;
+    public float focustCostPerAttack;
 
     // SetStandards
     public bool setStandards;
+
+    // Animator
+    private Animator animator;
+
+    // Script reference
+    [Header("Set in the inspector!")]
+    public GameObject animatorObjectReference;
+    public EnemyWeapon enemyWeaponScript;
+
+    private void Awake()
+    {
+        animator = animatorObjectReference.GetComponent<Animator>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,7 +71,7 @@ public class Enemy1Behaviour : MonoBehaviour
 
         UpdateTargetLocation();
 
-        if (Vector3.Distance(transform.position, target.position) <= _attackDistance && canAttack && focus >= _focustCostPerAttack)
+        if (Vector3.Distance(transform.position, target.position) <= _attackDistance && canAttack && focus >= focustCostPerAttack)
         {
             canAttack = false; // Prevent double starting
             StartCoroutine(AttackCooldown(_attackCooldown));
@@ -78,11 +91,11 @@ public class Enemy1Behaviour : MonoBehaviour
             maxFocus = 100f;
             focusRegenRate = 2f;
             healthRegenRate = 0f;
-            damage = 25f;
+            damage = 5f;
             damageMultiplier = 1f;
             armour = 0f;
             _attackCooldown = 3f;
-            _focustCostPerAttack = 10;
+            focustCostPerAttack = 10;
             _attackDistance = 2.5f;
 
             health = maxHealth;
@@ -127,6 +140,8 @@ public class Enemy1Behaviour : MonoBehaviour
     /// </summary>
     private void UpdateTargetLocation()
     {
+        transform.LookAt(target);
+
         if (Vector3.Distance(_destination, target.position) > _distanceDifference) // Updates when the difference is bigger then the value of distanceDifference
         {
             _destination = target.position; // Updates the vector destination of the agent to the position of the target
@@ -139,15 +154,14 @@ public class Enemy1Behaviour : MonoBehaviour
     /// </summary>
     /// <param name="timerSeconds"></param>
     /// <returns></returns>
-    IEnumerator AttackCooldown(float timerSeconds)
+    public IEnumerator AttackCooldown(float timerSeconds)
     {
         canAttack = false; // It gets set to false twice for extra safety
+        enemyWeaponScript.hasHit = false; // Makes sure the player can be hit again
+        
+        animator.SetTrigger("Attack"); // Triggers the attack animation
 
-        Debug.Log("Enemy Attacked");
-
-        // TODO: Damage here
-        PlayerStats.Instance.health -= damage * damageMultiplier;
-        focus -= _focustCostPerAttack;
+        focus -= focustCostPerAttack; // Makes the attack cost focus
 
         // Wait for the cooldown
         yield return new WaitForSeconds(timerSeconds);
