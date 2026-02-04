@@ -6,15 +6,15 @@ public class DialogueManager : MonoBehaviour
     public float interactionRadius = 3f;
 
     // Creates an array named npcs that keeps track of every object with the NPCDialogue component
-    private NPCDialogue[] npcs;
+    private NPCDialogue[] _npcs;
 
     // Stores the NPC that is the closest to the player. Can only be a object with the NPCDialogue component
-    private NPCDialogue closestNPC;
+    private NPCDialogue _closestNPC;
 
     void Start()
     {
         // Find only gameobjects with the NPCDialogue component and adds them to the array
-        npcs = FindObjectsByType<NPCDialogue>(FindObjectsSortMode.None);
+        _npcs = FindObjectsByType<NPCDialogue>(FindObjectsSortMode.None);
     }
 
     void Update()
@@ -24,9 +24,9 @@ public class DialogueManager : MonoBehaviour
         // (currently using Debug.Log for testing)
         FindClosestNPC();
 
-        if (closestNPC != null && Input.GetKeyDown(KeyCode.E))
+        if (_closestNPC != null && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log(closestNPC.GetNextDialogueLine());
+            Debug.Log(_closestNPC.GetNextDialogueLine());
         }
     }
 
@@ -37,10 +37,10 @@ public class DialogueManager : MonoBehaviour
     {
         // Makes sure the value is very high in the beginning
         float closestDistance = Mathf.Infinity;
-        closestNPC = null;
+        _closestNPC = null;
 
         
-        foreach (NPCDialogue npc in npcs)
+        foreach (NPCDialogue npc in _npcs)
         {
             // Calculate the distance from this NPC to the player
             float distance = Vector3.Distance(npc.transform.position, transform.position);
@@ -50,14 +50,14 @@ public class DialogueManager : MonoBehaviour
             if (distance < closestDistance && distance <= interactionRadius)
             {
                 closestDistance = distance;
-                closestNPC = npc;
+                _closestNPC = npc;
             }
         }
 
         // If it is not empty, say the name of the closest NPC
-        if (closestNPC != null)
+        if (_closestNPC != null)
         {
-            Debug.Log("Nearest NPC target is " + closestNPC.name);
+            Debug.Log("Nearest NPC target is " + _closestNPC.name);
         }
     }
 

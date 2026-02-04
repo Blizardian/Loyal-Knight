@@ -11,7 +11,7 @@ public class NPCDialogue : MonoBehaviour
     public UnityEvent[] dialogueEvents;
 
     // Value that keeps track of the dialogue line numbers
-    private int dialogueNumber;
+    private int _dialogueNumber;
 
     /// <summary>
     /// Gets the next dialogue line, looks if there is an event that needs to be called, if so calls it.
@@ -20,17 +20,16 @@ public class NPCDialogue : MonoBehaviour
     public string GetNextDialogueLine()
     {
         // Get the dialogue line
-        string line = dialogueLines[dialogueNumber];
+        string line = dialogueLines[_dialogueNumber];
 
         // If there is a event, call it
-        if (dialogueEvents != null && dialogueNumber < dialogueEvents.Length && dialogueEvents[dialogueNumber] != null)
+        if (dialogueEvents != null && _dialogueNumber < dialogueEvents.Length && dialogueEvents[_dialogueNumber] != null)
         {
-            dialogueEvents[dialogueNumber].Invoke();
+            dialogueEvents[_dialogueNumber].Invoke();
         }
 
         // Advance the dialogue number
-        dialogueNumber = (dialogueNumber + 1) % dialogueLines.Length;
-
+        _dialogueNumber = (_dialogueNumber + 1) % dialogueLines.Length;
 
         return line;
     }

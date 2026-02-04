@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             // Movementspeed is multiplied by the value of sprintValue
-            currentMovementSpeed = currentMovementSpeed * sprintValue;
+            currentMovementSpeed = standardMovementSpeed * sprintValue;
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
