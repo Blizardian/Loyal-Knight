@@ -2202,8 +2202,7 @@ Transform:
   m_LocalPosition: {x: 100, y: 1, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1792548109}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1463607557
@@ -2307,6 +2306,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 65536
+  target: {fileID: 0}
 --- !u!1 &1499887739
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,6 +2481,7 @@ GameObject:
   - component: {fileID: 1792548108}
   - component: {fileID: 1792548107}
   - component: {fileID: 1792548106}
+  - component: {fileID: 1792548110}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: Untagged
@@ -2600,12 +2601,26 @@ Transform:
   m_GameObject: {fileID: 1792548105}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42667797, y: -0, z: -0, w: 0.9044037}
-  m_LocalPosition: {x: -0.13, y: 22.26, z: -18.13}
+  m_LocalPosition: {x: 99.87, y: 25, z: 81.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1463607556}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50.514, y: 0, z: 0}
+--- !u!114 &1792548110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792548105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c56055b407c8a3540b126b96c4eca6db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CamFollowsPlayer
+  target: {fileID: 1463607556}
+  offset: {x: 0, y: 20, z: -16}
 --- !u!1 &1835150552
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,3 +3082,4 @@ SceneRoots:
   - {fileID: 1280018306}
   - {fileID: 1279264770}
   - {fileID: 1463607556}
+  - {fileID: 1792548109}
